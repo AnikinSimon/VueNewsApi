@@ -1,26 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app>
+    <v-main>
+      <HelloWorld/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios"
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
+    HelloWorld,
+  },
+
+  data: () => ({
+    //
+  }),
+  mounted() {
+    axios
+      .get('https://newsapi.org/v2/top-headlines?country=ru&apiKey=d7f41a32c26b4bbfb596d58b1a54c766')
+      .then(response => {
+        let info = response.data.articles
+        console.log(info)
+      });
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
